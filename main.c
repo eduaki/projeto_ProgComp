@@ -6,7 +6,7 @@ typedef struct{
   char name[50];
   char cpf[15];
   char cont_tel[10];
-  char email[100]
+  char email[50]
 } Cliente;
 
 typedef struct{
@@ -29,6 +29,7 @@ void fazer_reserva(Cliente cliente, int qtd_pessoas, int dia, int mes, int hora)
 int main(void){
 
 
+printf('teste');
 
   return 0;
 }
