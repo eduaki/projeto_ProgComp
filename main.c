@@ -28,7 +28,6 @@ void fazer_reserva(Cliente cliente, int qtd_pessoas, int dia, int mes, int hora)
 
 int main(void){
 
-
 printf('teste');
 
   return 0;
