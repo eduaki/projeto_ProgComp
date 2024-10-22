@@ -8,10 +8,10 @@
 #define esc 27
 
 typedef struct{
-  char *name[50];
-  char *cpf[15];
-  char *cont_tel[10];
-  char *email[50]
+  char *name;
+  char *cpf;
+  char *cont_tel;
+  char *email;
 } Cliente;
 
 typedef struct{
