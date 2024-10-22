@@ -15,7 +15,7 @@ typedef struct{
 } Cliente;
 
 typedef struct{
-  char *nome[30];
+  char *nome;
   float preco;
 } Prod;
 
