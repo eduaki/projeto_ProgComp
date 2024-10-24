@@ -37,64 +37,64 @@ void tabela_preco();
 
 
 void menu_principal(){
-  printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _");
-  printf("\n\t |                                                         |");
-  printf("\n\t | [1] - cardapio                                          |");
-  printf("\n\t | [2] - Gerenciar clientes                                |");
-  printf("\n\t | [3] - Gerenciar pedidos                                 |");
-  printf("\n\t | [4] - Fazer reserva                                     |"); 
-  printf("\n\t | [ESC]- Voltar                                           |");
-  printf("\n\t  ");
+  printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+  printf("\n\t |                                   |");
+  printf("\n\t | [1] - cardapio                    |");
+  printf("\n\t | [2] - Gerenciar clientes          |");
+  printf("\n\t | [3] - Gerenciar pedidos           |");
+  printf("\n\t | [4] - Fazer reserva               |"); 
+  printf("\n\t | [ESC]- Voltar                     |");
+  printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
 }
 
 
 
 void ver_cardapio(){
-  printf(" \n _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
-  printf("\n|          *Carnes*            |");
-  printf("\n| _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|");
-  printf("\n|       Picanha Grelhada       |");
-  printf("\n|   Mignon na Mostarda e Mel   |");
-  printf("\n|        Filet Argentino       |");
-  printf("\n|     Fraldinha na Mostarda    |");
-  printf("\n|      Maminha com Queijo      |");
-  printf("\n|           Short Rib          |");
-  printf("\n|            Coração           |");
-  printf("\n|        Costela de Porco      |");
-  printf(" \n _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
-  printf("\n");
-  printf("\n  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
-  printf("\n|        *Massas/Risoto*       |");
-  printf("\n| _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|");
-  printf("\n|         Nhoque Frito         |");
-  printf("\n|    Lasanha Quatro Queijos    |");
-  printf("\n|     Conchiglione de Figo     |");
-  printf("\n|         Fettuccini           |");
-  printf("\n|    Banana com Chocolate      |");
-  printf("\n|      Nhoque Dois Amores      |");
-  printf("\n|      Risoto de Palmito       |");
-  printf("\n|      Risoto de Camarão       |");
-  printf(" \n _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
-  printf("\n");
-  printf(" \n _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
-  printf("\n|        *Sobremesas*          |");
-  printf("\n| _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|");
-  printf("\n|            Tortas            |");
-  printf("\n|            Mousses           |");
-  printf("\n|             Pavês            |");
-  printf(" \n _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  \n");
-  printf("obs: confira a opção disponível no dia");
+  printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
+  printf("\n\t |           *Carnes*            |");
+  printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
+  printf("\n\t |   Picanha Grelhada            |");
+  printf("\n\t |   Mignon na Mostarda e Mel    |");
+  printf("\n\t |   Filet Argentino             |");
+  printf("\n\t |   Fraldinha na Mostarda       |");
+  printf("\n\t |   Maminha com Queijo          |");
+  printf("\n\t |   Short Rib                   |");
+  printf("\n\t |   Coracao                     |");
+  printf("\n\t |   Costela de Porco            |");
+  printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ | ");
+  printf("\n\t");
+  printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
+  printf("\n\t |        *Massas/Risotos*       |");
+  printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
+  printf("\n\t |   Nhoque Frito                |");
+  printf("\n\t |   Lasanha Quatro Queijos      |");
+  printf("\n\t |   Conchiglione de Figo        |");
+  printf("\n\t |   Fettuccini                  |");
+  printf("\n\t |   Banana com Chocolate        |");
+  printf("\n\t |   Nhoque Dois Amores          |");
+  printf("\n\t |   Risoto de Palmito           |");
+  printf("\n\t |   Risoto de Camarao           |");
+  printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
+  printf("\n\t");
+  printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
+  printf("\n\t |         *Sobremesas*          |");
+  printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
+  printf("\n\t |   Tortas                      |");
+  printf("\n\t |   Mousses                     |");
+  printf("\n\t |   Paves                       |");
+  printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
+  printf("\n\n\tobs: confira a opcao disponivel no dia");
 }
 
 
 
 void tabela_preco(){
-  printf("\n  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
-  printf("\n|             *Tabela de Preços*              |");
-  printf("\n| _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
-  printf("\n| De terça a sexta.......R$ 149,90/por pessoa |");
-  printf("\n| Sábado e Domingo.......R$ 159,90/por pessoa |");
-  printf("\n _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+  printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
+  printf("\n\t |             *Tabela de Precos*              |");
+  printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
+  printf("\n\t | De terca a sexta.......R$ 149,90/por pessoa |");
+  printf("\n\t | Sabado e Domingo.......R$ 159,90/por pessoa |");
+  printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
 }
 
 
@@ -112,11 +112,14 @@ switch (menu_opt){
     system("cls");
     ver_cardapio();
     tabela_preco();
-    system("cls");
+    printf("\n\n\t[digite qualquer tecla para sair]");
+    getch(); /// entrada do teclado, so pra sair do cardápio
+    system("cls"); /// limpa o console apos a execução
     break;
   case '2':
     system("cls");
     printf("abre o menu de gerencimento de clientes");
+    if(getch()) system("exit");
     system("cls");
   break;
   case '3':
@@ -141,5 +144,7 @@ switch (menu_opt){
   break;
 }
   } while(rodando_menu == true);
+
+  system("exit");
   return 0;
 }
