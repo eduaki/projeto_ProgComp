@@ -1,29 +1,11 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include <conio.h>
-#include<time.h>
-#include<stdbool.h>
-#include <windows.h>
-
-#define esc 27
-
-typedef struct{
-  char *name;
-  char *cpf;
-  char *cont_tel;
-  char *email;
-} Cliente;
+/// imports de arquivos do projeto
+#include "funcsClientes.c" // funcoes utilizadas para gerenciamento de clientes 
+#include "funcsGerais.c" // funcoes e includes
 
 typedef struct{
   char *nome;
   float preco;
 } Prod;
-
-
-/// funcoes de cliente
-void adiciona_cliente(Cliente cliente);
-void remove_cliente(char cpf[]);
-void ver_clientes();
 
 /// funcoes pedidos
 void fazer_pedido(char cpf_cliente[], Prod *lista_prod[], int viagem);
@@ -114,12 +96,11 @@ switch (menu_opt){
     tabela_preco();
     printf("\n\n\t[digite qualquer tecla para sair]");
     getch(); /// entrada do teclado, so pra sair do cardápio
-    system("cls"); /// limpa o console apos a execução
+    system("cls");///; limpa o console apos a execução
     break;
   case '2':
     system("cls");
-    printf("abre o menu de gerencimento de clientes");
-    if(getch()) system("exit");
+    gerenciamentoClientes();
     system("cls");
   break;
   case '3':
@@ -145,6 +126,6 @@ switch (menu_opt){
 }
   } while(rodando_menu == true);
 
-  system("exit");
+  if(!rodando_menu) system("exit");
   return 0;
 }
