@@ -30,7 +30,6 @@ void menu_principal(){
 }
 
 
-
 void ver_cardapio(){
   printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
   printf("\n\t |           *Carnes*            |");
@@ -69,7 +68,6 @@ void ver_cardapio(){
 }
 
 
-
 void tabela_preco(){
   printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
   printf("\n\t |             *Tabela de Precos*              |");
@@ -78,7 +76,6 @@ void tabela_preco(){
   printf("\n\t | Sabado e Domingo.......R$ 159,90/por pessoa |");
   printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
 }
-
 
 int main(void){
   char menu_opt;
@@ -101,7 +98,6 @@ switch (menu_opt){
   case '2':
     system("cls");
     gerenciamentoClientes();
-    system("cls");
   break;
   case '3':
     system("cls");
