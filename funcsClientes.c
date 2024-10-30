@@ -1,4 +1,5 @@
 #include "funcsGerais.c"
+// #include "testleitura.c" /// arquivo de testes
 
 typedef struct{
   char *name;
@@ -49,20 +50,14 @@ exit(1);
     printf("\t | email: "); scanf("%s", cliente.email);
     printf("\t | telefone: "); scanf("%s", cliente.cont_tel);
 
-    fprintf(cadArquivo, "nome: %s\n", cliente.name);
-    fprintf(cadArquivo, "CPF: %s\n", cliente.cpf);
-    fprintf(cadArquivo, "email: %s\n", cliente.email);
-    fprintf(cadArquivo, "telefone: %s\n", cliente.cont_tel);
-    fflush(cadArquivo);
-    printf("\tdados salvos com sucesso!\n[precione qualquer tecla para continuar]");
-    getch();
-
+    fprintf(cadArquivo, "%s, %s, %s, %s\n", cliente.name, cliente.cpf, cliente.email, cliente.cont_tel);
+    printf("\t\tdados salvos com sucesso!\n\t\t[aguarde um momento]");
+    sleep(3);
 
   if(fclose(cadArquivo) != 0){
     printf("ERRO AO FECHAR ARQUIVO");
     exit(1);
   }
-  printf("arquivo fechado");
 }
 
 void gerenciamentoClientes(){
@@ -84,7 +79,6 @@ void gerenciamentoClientes(){
       case '1':
       system("cls");
       adiciona_cliente();
-      getch();
       system("cls");
       break;
       case '2':
@@ -94,7 +88,8 @@ void gerenciamentoClientes(){
       break;
       case '3':
       system("cls");
-  //    ver_clientes();
+      // leituradados(); essa funcao esta em testes 
+      getch();
       system("cls");
       case esc:
       system("cls");
