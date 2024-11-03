@@ -59,6 +59,7 @@ void ver_cardapio(){
   printf("\n\n\tobs: confira a opcao disponivel no dia");
 }
 
+// teste
 
 void tabela_preco(){
   printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
