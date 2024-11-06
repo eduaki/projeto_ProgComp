@@ -16,8 +16,7 @@ void ver_clientes();
 
 void adiciona_cliente(){
 
-  Cliente cliente;
-  bool cadFim;
+  Cliente *cliente;
   FILE *cadArquivo = fopen("cadastros.txt", "ab");
 
   cliente.name = (char *) malloc(50);
@@ -88,7 +87,7 @@ void gerenciamentoClientes(){
       break;
       case '3':
       system("cls");
-      // leituradados(); essa funcao esta em testes 
+      // leituradados(); // essa funcao esta em testes 
       getch();
       system("cls");
       case esc:
