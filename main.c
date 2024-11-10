@@ -19,14 +19,14 @@ void tabela_preco();
 
 
 void menu_principal(){
-  printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
-  printf("\n\t |                                   |");
-  printf("\n\t | [1] - cardapio                    |");
-  printf("\n\t | [2] - Gerenciar clientes          |");
-  printf("\n\t | [3] - Gerenciar pedidos           |");
-  printf("\n\t | [4] - Fazer reserva               |"); 
-  printf("\n\t | [ESC]- Voltar                     |");
-  printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+  printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _");
+  printf("\n\t |                                     |");
+  printf("\n\t |  [1]  - cardapio                    |");
+  printf("\n\t |  [2]  - Gerenciar clientes          |");
+  printf("\n\t |  [3]  - Gerenciar pedidos           |");
+  printf("\n\t |  [4]  - Fazer reserva               |"); 
+  printf("\n\t | [esc] - Voltar                      |");
+  printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
 }
 
 
