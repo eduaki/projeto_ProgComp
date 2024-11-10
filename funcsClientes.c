@@ -1,5 +1,4 @@
 #include "funcsGerais.c"
-// #include "testleitura.c" /// arquivo de testes
 
 typedef struct{
   char *name;
@@ -8,16 +7,26 @@ typedef struct{
   char *email;
 } Cliente;
 
-#define esc 27
+typedef struct { 
+    char nome[70];
+    char cpf[15];
+    char mail[200];
+    char tel[13];
+} Usuario;
 
+#define esc 27
+#define NOMEAQUIVO "cadastros.txt"
+
+/// prototipos
 void adiciona_cliente();
 void remove_cliente(char cpf[]);
 void ver_clientes();
+/// fim prototipos
 
 void adiciona_cliente(){
 
-  Cliente *cliente;
-  FILE *cadArquivo = fopen("cadastros.txt", "ab");
+  Cliente cliente;
+  FILE *cadArquivo = fopen(NOMEAQUIVO, "ab");
 
   cliente.name = (char *) malloc(50);
   cliente.cpf = (char *) malloc(15);
@@ -40,16 +49,32 @@ exit(1);
     exit(1);
   }
 
+  char nome[70];
+  char cpf[15];
+  char mail[200];
+  char tel[15];
+
     system("cls");
-    printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+	printf("\n\t  ----------------------------------- ");
     printf("\n\t |        ADICIONANDO CLIENTE        |");
-    printf("\n\t |-----------------------------------|");
-    printf("\n\t | Nome: "); scanf("%[^\n]", cliente.name);
-    printf("\t | CPF: "); scanf("%s", cliente.cpf);
-    printf("\t | email: "); scanf("%s", cliente.email);
-    printf("\t | telefone: "); scanf("%s", cliente.cont_tel);
+    printf("\n\t |___________________________________|");
+    fflush(stdin);
+    printf("\n\t | Nome: "); scanf("%[^\n]", nome);
+    fflush(stdin);
+    printf("\t | CPF: "); scanf("%s", cpf);
+    fflush(stdin);
+    printf("\t | email: "); scanf("%s", mail);
+    fflush(stdin);
+    printf("\t | telefone: "); scanf("%s", tel);
+    fflush(stdin);
+
+    strcpy(cliente.name, nome);
+    strcpy(cliente.cpf, cpf);
+    strcpy(cliente.email, mail);
+    strcpy(cliente.cont_tel, tel);
 
     fprintf(cadArquivo, "%s, %s, %s, %s\n", cliente.name, cliente.cpf, cliente.email, cliente.cont_tel);
+    fflush(cadArquivo);
     printf("\t\tdados salvos com sucesso!\n\t\t[aguarde um momento]");
     sleep(3);
 
@@ -57,6 +82,69 @@ exit(1);
     printf("ERRO AO FECHAR ARQUIVO");
     exit(1);
   }
+}
+
+void ver_clientes(){
+      FILE *fp = fopen(NOMEAQUIVO, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error: Failed to open file.\n");
+        exit(1);
+    }
+
+    Usuario *users = NULL;
+    int user_count = 0;
+    char string[200];
+
+    users = (Usuario *) malloc((user_count + 1) * sizeof(Usuario));
+
+    printf("\n\t  ----------------------------------------------- ");
+    printf("\n\t |              *lista de clientes*              |");
+    printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |\n\n");
+
+    printf("\t  ___________________________________________");
+    while (fgets(string, sizeof(string), fp) != NULL) {
+        // Remove o caractere de nova linha se presente
+        string[strcspn(string, "\n")] = '\0';
+
+        users = realloc(users, (user_count + 1) * sizeof(Usuario));
+        if (users == NULL) {
+            fprintf(stderr, "Erro: nao foi possivel alocar a memoria.\n");
+            fclose(fp);
+            exit(1);
+        }
+
+        char *name;
+        char *cpf;
+        char *mail;
+        char *tel;
+
+        name = (char *) malloc(70);
+        cpf = (char *) malloc(15);
+        mail = (char *) malloc(200);
+        tel = (char *) malloc(13);
+
+        name = strtok(string, ",");
+        cpf = strtok(NULL, ",");
+        mail = strtok(NULL, ",");
+        tel = strtok(NULL, ",");
+        printf("\n\t | nome: %s", name);
+        printf("\n\t | cpf: %s", cpf);
+        printf("\n\t | email: %s", mail);
+        printf("\n\t | tel: %s", tel);
+        printf("\n\t |___________________________________________");
+
+
+        //// essa parte ainda é um pouco inutil, mas eu vou achar uma utilidade pra ela
+        // strcpy(users[user_count].nome, name);
+        // strcpy(users[user_count].cpf, cpf);
+        // strcpy(users[user_count].mail, mail);
+        // strcpy(users[user_count].tel, tel);
+
+        user_count++;
+    }
+
+    fclose(fp);
+    printf("\n\n\t[Pressione qualquer tecla para sair...]\n");
 }
 
 void gerenciamentoClientes(){
@@ -73,7 +161,6 @@ void gerenciamentoClientes(){
     printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
     opt_menu = getch();
 
-      int test;
     switch(opt_menu){
       case '1':
       system("cls");
@@ -87,7 +174,7 @@ void gerenciamentoClientes(){
       break;
       case '3':
       system("cls");
-      // leituradados(); // essa funcao esta em testes 
+      ver_clientes(); // essa funcao esta em testes 
       getch();
       system("cls");
       case esc:
