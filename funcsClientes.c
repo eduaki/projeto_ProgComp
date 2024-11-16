@@ -15,7 +15,7 @@ typedef struct {
 } Usuario;
 
 #define esc 27
-#define NOMEAQUIVO "cadastros.txt"
+#define NOMEARQUIVO "cadastros.txt"
 
 /// prototipos
 void adiciona_cliente();
@@ -87,7 +87,7 @@ int validarcpf(char cpf[15]) {
 void adiciona_cliente(){
 
   Cliente cliente;
-  FILE *cadArquivo = fopen(NOMEAQUIVO, "ab");
+  FILE *cadArquivo = fopen(NOMEARQUIVO, "ab");
 
   cliente.name = (char *) malloc(50);
   cliente.cpf = (char *) malloc(15);
@@ -159,18 +159,16 @@ void adiciona_cliente(){
   free(cliente.cont_tel);
 }
 
-void ver_clientes(){
-  FILE *fp = fopen(NOMEAQUIVO, "r");
+void ver_clientes() {
+  FILE *fp = fopen(NOMEARQUIVO, "r");
   if (fp == NULL) {
-    fprintf(stderr, "ERRO AO ABRIR O ARQUIVO!!.\n");
-    exit(1);
+      fprintf(stderr, "ERRO AO ABRIR O ARQUIVO!!.\n");
+      exit(1);
   }
 
   Usuario *users = NULL;
-  int user_count = 0; // variavel controle de usuarios para alocacao de memoria
+  int user_count = 0; // Contador de usuários
   char string[200];
-
-  users = (Usuario *) malloc((user_count + 1) * sizeof(Usuario));
 
   printf("\n\t  ----------------------------------------------- ");
   printf("\n\t |              *lista de clientes*              |");
@@ -181,44 +179,73 @@ void ver_clientes(){
     // Remove o caractere de nova linha se presente
     string[strcspn(string, "\n")] = '\0';
 
-    users = realloc(users, (user_count + 1) * sizeof(Usuario));
-    if (users == NULL) {
-      fprintf(stderr, "Erro: nao foi possivel alocar a memoria.\n");
+    Usuario *temp = realloc(users, (user_count + 1) * sizeof(Usuario));
+
+    if (temp == NULL) {
+      fprintf(stderr, "Erro: não foi possível alocar a memória.\n");
+      free(users);
       fclose(fp);
       exit(1);
     }
+    users = temp;
 
-    char *name;
-    char *cpf;
-    char *mail;
-    char *tel;
+    // Tokenizar os dados
+    char *name = strtok(string, ",");
+    char *cpf = strtok(NULL, ",");
+    char *mail = strtok(NULL, ",");
+    char *tel = strtok(NULL, ",");
 
-    name = (char *) malloc(70);
-    cpf = (char *) malloc(15);
-    mail = (char *) malloc(200);
-    tel = (char *) malloc(13);
-
-    name = strtok(string, ",");
-    cpf = strtok(NULL, ",");
-    mail = strtok(NULL, ",");
-    tel = strtok(NULL, ",");
+    // Exibir informações do cliente
     printf("\n\t | nome:   %s", name);
     printf("\n\t | cpf:    %s", cpf);
     printf("\n\t | email:  %s", mail);
     printf("\n\t | tel:    %s", tel);
     printf("\n\t |___________________________________________");
 
-
-    //// essa parte ainda é um pouco inutil, mas eu vou achar uma utilidade pra ela
-    // strcpy(users[user_count].nome, name);
-    // strcpy(users[user_count].cpf, cpf);
-    // strcpy(users[user_count].mail, mail);
-    // strcpy(users[user_count].tel, tel);
-
+    // Armazenar dados no array
+    strcpy(users[user_count].nome, name);
+    strcpy(users[user_count].cpf, cpf);
+    strcpy(users[user_count].mail, mail);
+    strcpy(users[user_count].tel, tel);
     user_count++;
   }
 
   fclose(fp);
+
+  int menu_opt;
+  bool menu_rodando = true;
+
+  do{
+    printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+    printf("\n\t |            GERENCIANDO CLIENTES           |");
+    printf("\n\t |-------------------------------------------|");
+    printf("\n\t |  [1]  - Buscar cliente (por CPF)          |");
+    printf("\n\t |  [2]  - Ordenar lista (por CPF)           |");
+    printf("\n\t | [ESC] - Voltar                            |");
+    printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+    menu_opt = getch();
+
+    switch (menu_opt) {
+      case '1':
+        system("cls"); 
+        printf("buscar clientes pelo CPF");
+      break;
+      case '2':
+        system("cls");
+        printf("ordenar clientes pelo CPF");
+      break;
+      case esc:
+        menu_rodando = false;
+      break;
+      default:
+        system("cls");
+        printf("\nDigite uma opcao valida.\n");
+        printf("%d", menu_opt);
+      break;
+    }
+  }while(menu_rodando);
+
+  free(users);
   printf("\n\n\t[Pressione qualquer tecla para sair...]\n");
 }
 
