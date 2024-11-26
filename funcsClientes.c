@@ -12,6 +12,7 @@ typedef struct {
   char cpf[15];
   char mail[200];
   char tel[13];
+  int  ativo;
 } Usuario;
 
 #define esc 27
@@ -21,6 +22,7 @@ typedef struct {
 void adiciona_cliente();
 void remove_cliente(char cpf[]);
 void ver_clientes();
+void busca_cliente(char *cpf_cliente);
 /// fim prototipos
 
 // funcao que verifica se o cpf é valido
@@ -84,8 +86,67 @@ int validarcpf(char cpf[15]) {
     return 0; // CPF válido
   }
 }
-void adiciona_cliente(){
 
+void busca_cliente(char *cpf_cliente){
+
+  FILE *fp = fopen(NOMEARQUIVO, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    char linha[200];
+    char *nome, *cpf, *email, *tel, *ativo;
+
+    printf("\n\tBuscando usuario com CPF: %s\n", cpf_cliente);
+    sleep(1);
+    printf("\n\t...");
+    sleep(1);
+    printf("\n\t...");
+    sleep(1);
+    printf("\n\t...");
+    sleep(1);
+    system("cls");
+
+    while (fgets(linha, sizeof(linha), fp)) {
+      // Remover a nova linha, se houver
+      linha[strcspn(linha, "\n")] = '\0';
+
+      nome = strtok(linha, ",");
+      cpf = strtok(NULL, ",");
+      email = strtok(NULL, ",");
+      tel = strtok(NULL, ",");
+      ativo = strtok(NULL, ",");
+
+      if (strcmp(cpf, cpf_cliente) == 0) {
+        printf("\n\t  ___________________________________ ");
+        printf("\n\t |         Usuario encontrado:       |");
+        printf("\n\t |___________________________________|");
+        printf("\n\t |Nome:      %s", nome);
+        printf("\n\t |CPF:       %s", cpf);
+        printf("\n\t |Email:     %s", email);
+        printf("\n\t |Telefone:  %s", tel);
+
+        if (strcmp(ativo, "1") == 0) {
+        printf("\n\t |Ativo: Sim");
+        } else {
+        printf("\n\t |Ativo: Nao");
+        }
+        
+        printf("\n\t  ------------------------------------\n\n");
+        fclose(fp);
+        return;
+      }
+    }
+
+      printf("\n\t  ------------------------------------ ");
+      printf("\n\t |       USUARIO NAO ENCONTRADO       |");
+      printf("\n\t |____________________________________|");
+    fclose(fp);
+
+}
+
+void adiciona_cliente(){
   Cliente cliente;
   FILE *cadArquivo = fopen(NOMEARQUIVO, "ab");
 
@@ -142,7 +203,7 @@ void adiciona_cliente(){
     return;
   }
 
-  fprintf(cadArquivo, "%s, %s, %s, %s\n", cliente.name, cliente.cpf, cliente.email, cliente.cont_tel);
+  fprintf(cadArquivo, "%s,%s,%s,%s,%d\n", cliente.name, cliente.cpf, cliente.email, cliente.cont_tel, 1);
   fflush(cadArquivo);
   printf("\t\tdados salvos com sucesso!\n\t\t[aguarde um momento]");
   sleep(2);
@@ -194,12 +255,20 @@ void ver_clientes() {
     char *cpf = strtok(NULL, ",");
     char *mail = strtok(NULL, ",");
     char *tel = strtok(NULL, ",");
+    char *ativo = strtok(NULL, ",");
 
     // Exibir informações do cliente
-    printf("\n\t | nome:   %s", name);
-    printf("\n\t | cpf:    %s", cpf);
-    printf("\n\t | email:  %s", mail);
-    printf("\n\t | tel:    %s", tel);
+    printf("\n\t | nome:      %s", name);
+    printf("\n\t | cpf:       %s", cpf);
+    printf("\n\t | email:     %s", mail);
+    printf("\n\t | tel:       %s", tel);
+
+    if (strcmp(ativo, "1") == 0) {
+    printf("\n\t | Ativo:     Sim");
+    } else {
+    printf("\n\t | Ativo:     Nao");
+    }
+    
     printf("\n\t |___________________________________________");
 
     // Armazenar dados no array
@@ -207,6 +276,7 @@ void ver_clientes() {
     strcpy(users[user_count].cpf, cpf);
     strcpy(users[user_count].mail, mail);
     strcpy(users[user_count].tel, tel);
+    users[user_count].ativo = ativo;
     user_count++;
   }
 
@@ -214,6 +284,8 @@ void ver_clientes() {
 
   int menu_opt;
   bool menu_rodando = true;
+
+  char cpf_buscado[15];
 
   do{
     printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
@@ -224,11 +296,15 @@ void ver_clientes() {
     printf("\n\t | [ESC] - Voltar                            |");
     printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
     menu_opt = getch();
-
+  
     switch (menu_opt) {
       case '1':
         system("cls"); 
-        printf("buscar clientes pelo CPF");
+        printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+        printf("\n\t |        CPF DO USUARIO A SER BUSCADO       |");
+        printf("\n\t |-------------------------------------------|");
+        printf("\n\t | "); scanf("%s", cpf_buscado);
+        busca_cliente(cpf_buscado);
       break;
       case '2':
         system("cls");
