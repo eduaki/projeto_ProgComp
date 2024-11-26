@@ -12,7 +12,7 @@ typedef struct {
   char cpf[15];
   char mail[200];
   char tel[13];
-  int  ativo;
+  char ativo[3];
 } Usuario;
 
 #define esc 27
@@ -23,6 +23,7 @@ void adiciona_cliente();
 void remove_cliente(char cpf[]);
 void ver_clientes();
 void busca_cliente(char *cpf_cliente);
+void ordenarCPF(Usuario *listaCliente, int n);
 /// fim prototipos
 
 // funcao que verifica se o cpf é valido
@@ -126,12 +127,7 @@ void busca_cliente(char *cpf_cliente){
       printf("\n\t |CPF:       %s", cpf);
       printf("\n\t |Email:     %s", email);
       printf("\n\t |Telefone:  %s", tel);
-
-      if (strcmp(ativo, "1") == 0) {
-      printf("\n\t |Ativo: Sim");
-      } else {
-      printf("\n\t |Ativo: Nao");
-      }
+      printf("\n\t |Ativo:     %s", ativo);
       
       printf("\n\t  ------------------------------------\n\n");
       fclose(fp);
@@ -146,9 +142,25 @@ void busca_cliente(char *cpf_cliente){
 
 }
 
+void ordenarCPF(Usuario *listaCliente, int n) {
+  int i, j;
+  Usuario temp;
+
+  for (i = 0; i < n - 1; i++) {
+    for (j = 0; j < n - i - 1; j++) {
+      if (strcmp(listaCliente[j].cpf, listaCliente[j + 1].cpf) > 0) {
+        // Trocar os CPFs se estiverem na ordem errada
+        temp = listaCliente[j];
+        listaCliente[j] = listaCliente[j + 1];
+        listaCliente[j + 1] = temp;
+      }
+    }
+  }
+}
+
 void adiciona_cliente(){
   Cliente cliente;
-  FILE *cadArquivo = fopen(NOMEARQUIVO, "ab");
+  FILE *cadArquivo = fopen(NOMEARQUIVO, "a+");
 
   cliente.name = (char *) malloc(50);
   cliente.cpf = (char *) malloc(15);
@@ -203,7 +215,7 @@ void adiciona_cliente(){
     return;
   }
 
-  fprintf(cadArquivo, "%s,%s,%s,%s,%d\n", cliente.name, cliente.cpf, cliente.email, cliente.cont_tel, 1);
+  fprintf(cadArquivo, "%s,%s,%s,%s,Sim\n", cliente.name, cliente.cpf, cliente.email, cliente.cont_tel);
   fflush(cadArquivo);
   printf("\t\tdados salvos com sucesso!\n\t\t[aguarde um momento]");
   sleep(2);
@@ -249,7 +261,6 @@ void ver_clientes() {
       exit(1);
     }
     users = temp;
-    free(temp);
 
     // Tokenizar os dados
     char *name  = strtok(string, ",");
@@ -259,17 +270,11 @@ void ver_clientes() {
     char *ativo = strtok(NULL, ",");
 
     // Exibir informações do cliente
-    printf("\n\t | nome:      %s", name);
-    printf("\n\t | cpf:       %s", cpf);
-    printf("\n\t | email:     %s", mail);
-    printf("\n\t | tel:       %s", tel);
-
-    if (strcmp(ativo, "1") == 0) {
-    printf("\n\t | Ativo:     Sim");
-    } else {
-    printf("\n\t | Ativo:     Nao");
-    }
-    
+    printf("\n\t | Nome:      %s", name);
+    printf("\n\t | Cpf:       %s", cpf);
+    printf("\n\t | Email:     %s", mail);
+    printf("\n\t | Tel:       %s", tel);
+    printf("\n\t | Ativo:     %s", ativo);
     printf("\n\t |___________________________________________");
 
     // Armazenar dados no array
@@ -277,7 +282,7 @@ void ver_clientes() {
     strcpy(users[user_count].cpf, cpf);
     strcpy(users[user_count].mail, mail);
     strcpy(users[user_count].tel, tel);
-    users[user_count].ativo = ativo;
+    strcpy(users[user_count].ativo, ativo);
     user_count++;
   }
 
@@ -309,7 +314,21 @@ void ver_clientes() {
       break;
       case '2':
         system("cls");
-        printf("ordenar clientes pelo CPF");
+        ordenarCPF(users, user_count);
+        int i;
+
+        printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
+        printf("\n\t |             USUARIOS ORDENADOS            |");
+        printf("\n\t |-------------------------------------------|");
+
+        for(i = 0; i < user_count; i++){
+          printf("\n\t | Nome:      %s", users[i].nome);
+          printf("\n\t | Cpf:       %s", users[i].cpf);
+          printf("\n\t | E-mail:    %s", users[i].mail);
+          printf("\n\t | Tel:       %s", users[i].tel);
+          printf("\n\t | Ativo:     %s", users[i].ativo);
+          printf("\n\t |------------------------------------------");
+        }
       break;
       case esc:
         menu_rodando = false;

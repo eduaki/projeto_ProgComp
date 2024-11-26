@@ -53,7 +53,7 @@ void ver_cardapio(){
   printf("\n\t | Nhoque Dois Amores            |");
   printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
   printf("\n\t");
-  printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
+  printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  "); 
   printf("\n\t |         *Sobremesas*          |");
   printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
   printf("\n\t | Tortas                        |");
@@ -65,7 +65,7 @@ void ver_cardapio(){
 
 
 
-void tabela_preco(){
+void tabela_preco(){	
   printf("\n\t   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  ");
   printf("\n\t |             *Tabela de Precos*              |");
   printf("\n\t | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |");
