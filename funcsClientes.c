@@ -90,59 +90,59 @@ int validarcpf(char cpf[15]) {
 void busca_cliente(char *cpf_cliente){
 
   FILE *fp = fopen(NOMEARQUIVO, "r");
-    if (fp == NULL) {
-        fprintf(stderr, "Erro ao abrir o arquivo.\n");
-        return;
-    }
+  if (fp == NULL) {
+    fprintf(stderr, "Erro ao abrir o arquivo.\n");
+    return;
+  }
 
-    char linha[200];
-    char *nome, *cpf, *email, *tel, *ativo;
+  char linha[200];
+  char *nome, *cpf, *email, *tel, *ativo;
 
-    printf("\n\tBuscando usuario com CPF: %s\n", cpf_cliente);
-    sleep(1);
-    printf("\n\t...");
-    sleep(1);
-    printf("\n\t...");
-    sleep(1);
-    printf("\n\t...");
-    sleep(1);
-    system("cls");
+  printf("\n\tBuscando usuario com CPF: %s\n", cpf_cliente);
+  sleep(1);
+  printf("\n\t...");
+  sleep(1);
+  printf("\n\t...");
+  sleep(1);
+  printf("\n\t...");
+  sleep(1);
+  system("cls");
 
-    while (fgets(linha, sizeof(linha), fp)) {
-      // Remover a nova linha, se houver
-      linha[strcspn(linha, "\n")] = '\0';
+  while (fgets(linha, sizeof(linha), fp)) {
+    // Remover a nova linha, se houver
+    linha[strcspn(linha, "\n")] = '\0';
 
-      nome = strtok(linha, ",");
-      cpf = strtok(NULL, ",");
-      email = strtok(NULL, ",");
-      tel = strtok(NULL, ",");
-      ativo = strtok(NULL, ",");
+    nome  = strtok(linha, ",");
+    cpf   = strtok(NULL, ",");
+    email = strtok(NULL, ",");
+    tel   = strtok(NULL, ",");
+    ativo = strtok(NULL, ",");
 
-      if (strcmp(cpf, cpf_cliente) == 0) {
-        printf("\n\t  ___________________________________ ");
-        printf("\n\t |         Usuario encontrado:       |");
-        printf("\n\t |___________________________________|");
-        printf("\n\t |Nome:      %s", nome);
-        printf("\n\t |CPF:       %s", cpf);
-        printf("\n\t |Email:     %s", email);
-        printf("\n\t |Telefone:  %s", tel);
+    if (strcmp(cpf, cpf_cliente) == 0) {
+      printf("\n\t  ___________________________________ ");
+      printf("\n\t |         Usuario encontrado:       |");
+      printf("\n\t |___________________________________|");
+      printf("\n\t |Nome:      %s", nome);
+      printf("\n\t |CPF:       %s", cpf);
+      printf("\n\t |Email:     %s", email);
+      printf("\n\t |Telefone:  %s", tel);
 
-        if (strcmp(ativo, "1") == 0) {
-        printf("\n\t |Ativo: Sim");
-        } else {
-        printf("\n\t |Ativo: Nao");
-        }
-        
-        printf("\n\t  ------------------------------------\n\n");
-        fclose(fp);
-        return;
+      if (strcmp(ativo, "1") == 0) {
+      printf("\n\t |Ativo: Sim");
+      } else {
+      printf("\n\t |Ativo: Nao");
       }
+      
+      printf("\n\t  ------------------------------------\n\n");
+      fclose(fp);
+      return;
     }
+  }
 
-      printf("\n\t  ------------------------------------ ");
-      printf("\n\t |       USUARIO NAO ENCONTRADO       |");
-      printf("\n\t |____________________________________|");
-    fclose(fp);
+  printf("\n\t  ------------------------------------ ");
+  printf("\n\t |       USUARIO NAO ENCONTRADO       |");
+  printf("\n\t |____________________________________|");
+  fclose(fp);
 
 }
 
@@ -223,8 +223,8 @@ void adiciona_cliente(){
 void ver_clientes() {
   FILE *fp = fopen(NOMEARQUIVO, "r");
   if (fp == NULL) {
-      fprintf(stderr, "ERRO AO ABRIR O ARQUIVO!!.\n");
-      exit(1);
+    fprintf(stderr, "ERRO AO ABRIR O ARQUIVO!!.\n");
+    exit(1);
   }
 
   Usuario *users = NULL;
@@ -249,12 +249,13 @@ void ver_clientes() {
       exit(1);
     }
     users = temp;
+    free(temp);
 
     // Tokenizar os dados
-    char *name = strtok(string, ",");
-    char *cpf = strtok(NULL, ",");
-    char *mail = strtok(NULL, ",");
-    char *tel = strtok(NULL, ",");
+    char *name  = strtok(string, ",");
+    char *cpf   = strtok(NULL, ",");
+    char *mail  = strtok(NULL, ",");
+    char *tel   = strtok(NULL, ",");
     char *ativo = strtok(NULL, ",");
 
     // Exibir informações do cliente
