@@ -8,11 +8,11 @@ typedef struct{
 } Cliente;
 
 typedef struct { 
-  char nome[70];
-  char cpf[15];
-  char mail[200];
-  char tel[13];
-  char ativo[3];
+  char nome[100];
+  char cpf[16];
+  char mail[300];
+  char tel[15];
+  char ativo[4];
 } Usuario;
 
 #define esc 27
@@ -146,16 +146,17 @@ void ordenarCPF(Usuario *listaCliente, int n) {
   int i, j;
   Usuario temp;
 
-  for (i = 0; i < n - 1; i++) {
-    for (j = 0; j < n - i - 1; j++) {
-      if (strcmp(listaCliente[j].cpf, listaCliente[j + 1].cpf) > 0) {
-        // Trocar os CPFs se estiverem na ordem errada
+  for(i = 0; i < n; i++){
+    for(j = 0; j < (i - (n + 1)); j++){
+      if(strcmp(listaCliente[j].cpf, listaCliente[j+1].cpf) > 0){
         temp = listaCliente[j];
         listaCliente[j] = listaCliente[j + 1];
         listaCliente[j + 1] = temp;
       }
     }
   }
+
+
 }
 
 void adiciona_cliente(){
