@@ -159,6 +159,92 @@ void ordenarCPF(Usuario *listaCliente, int n) {
 
 }
 
+// funcao que remove os clientes
+void remove_cliente(char cpf_excluido[]) {
+    FILE *arq_original, *arq_temp;
+    char linha[300];
+    int user_count = 0;
+
+    Usuario *listaUsuarios = NULL;
+    Usuario *listatemporaria = realloc(listaUsuarios, (user_count + 1) * sizeof(Usuario));
+    if (listatemporaria == NULL) {
+      fprintf(stderr, "Erro: não foi possível alocar a memória.\n");
+      free(listaUsuarios);
+      fclose(arq_original);
+      exit(1);
+  }
+
+    arq_original = fopen(NOMEARQUIVO, "r");
+
+    if (arq_original == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return;
+    }
+    arq_temp = fopen("temp.txt", "w+");
+    if (arq_temp == NULL) {
+        perror("Erro ao criar o arquivo temporário");
+        fclose(arq_original);
+        return;
+    }
+
+while (fgets(linha, sizeof(linha), arq_original) != NULL) {
+  linha[strcspn(linha, "\n")] = '\0';
+
+  listaUsuarios = listatemporaria;
+
+    // Tokenizar os dados
+    char *name  = strtok(linha, ",");
+    char *cpf   = strtok(NULL, ",");
+    char *mail  = strtok(NULL, ",");
+    char *tel   = strtok(NULL, ",");
+    char *ativo = strtok(NULL, ",");
+
+    user_count++;
+    printf("quantidade de usuarios: %d", user_count);
+
+    int i, indice = -1;
+
+    // Encontrar o índice da pessoa a ser excluída
+    for (i = 0; i < user_count; i++) {
+        if (strcmp(listaUsuarios[i].cpf, cpf_excluido) == 0) {
+            indice = i;
+            break;
+        }
+    }
+
+
+    if (indice != -1) {
+        // Deslocar os elementos
+        for (i = indice; i < user_count - 1; i++) {
+            listaUsuarios[i] = listaUsuarios[i+1];
+        }
+        // Atualizar o tamanho do array
+        user_count--;
+    } else {
+        printf("Pessoa não encontrada.\n");
+    }
+    
+    fprintf(arq_temp, "%s,%s,%s,%s,%s\n", 
+            listaUsuarios[user_count].nome, 
+            listaUsuarios[user_count].cpf, 
+            listaUsuarios[user_count].mail, 
+            listaUsuarios[user_count].tel, 
+            listaUsuarios[user_count].ativo);
+}
+
+    fclose(arq_original);
+    fclose(arq_temp);
+
+    if (remove(NOMEARQUIVO) != 0) {
+        perror("Erro ao remover o arquivo original");
+        return;
+    }
+
+    if (rename("temp.txt", NOMEARQUIVO) != 0) {
+        perror("Erro ao renomear o arquivo temporário");
+        return;
+    }
+}
 void adiciona_cliente(){
   Cliente cliente;
   FILE *cadArquivo = fopen(NOMEARQUIVO, "a+");
@@ -349,6 +435,7 @@ void ver_clientes() {
 void gerenciamentoClientes(){
   bool menu_op = true; /// define que o menu esta aberto desde o comeco da execucao da funcao
   int opt_menu; 
+  char cpf[17];	
 
   do{
     printf("\n\t  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ");
@@ -369,8 +456,9 @@ void gerenciamentoClientes(){
       break;
       case '2':
         system("cls");
-        //remove_cliente();
-        system("cls");
+        printf("qual o CPF do cliente a ser excluido: ");
+        scanf("%s", cpf);
+        remove_cliente(cpf);
       break;
       case '3':
         system("cls");
