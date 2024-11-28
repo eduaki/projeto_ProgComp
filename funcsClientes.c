@@ -146,17 +146,15 @@ void ordenarCPF(Usuario *listaCliente, int n) {
   int i, j;
   Usuario temp;
 
-  for(i = 0; i < n; i++){
-    for(j = 0; j < (i - (n + 1)); j++){
-      if(strcmp(listaCliente[j].cpf, listaCliente[j+1].cpf) > 0){
+  for (i = 0; i < n - 1; i++) {
+    for (j = 0; j < n - i - 1; j++) {
+      if (strcmp(listaCliente[j].cpf, listaCliente[j+1].cpf) > 0) {
         temp = listaCliente[j];
-        listaCliente[j] = listaCliente[j + 1];
-        listaCliente[j + 1] = temp;
+        listaCliente[j] = listaCliente[j+1];
+        listaCliente[j+1] = temp;
       }
     }
   }
-
-
 }
 
 // funcao que remove os clientes

@@ -1,8 +1,3 @@
-
-/*
-  ultima edição no codigo feita no dia 26/11
-*/
-
 /// imports de arquivos do projeto
 #include "funcsClientes.c" // funcoes utilizadas para gerenciamento de clientes 
 #include "funcsGerais.c" // funcoes e includes
